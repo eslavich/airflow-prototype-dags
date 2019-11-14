@@ -14,7 +14,7 @@ default_args = {
     "retry_delay": timedelta(seconds=15)
 }
 
-dag = DAG("cowsay", default_args=default_args, schedule_interval=None)
+dag = DAG("cowsay-test", default_args=default_args, schedule_interval=None)
 
 dummy_operator = DummyOperator(task_id='dummy_task', dag=dag)
 
