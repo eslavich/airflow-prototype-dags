@@ -27,6 +27,15 @@ op = KubernetesPodOperator(
     ],
     name="strun",
     task_id="strun-test",
+    env_vars={
+        "AWS_DEFAULT_REGION": "us-east-1"
+    },
+    resources={
+        "request_memory": 12884901888, # 12 GB
+        "request_cpu": 2,
+        "limit_memory": 15032385536, # 14 GB
+        "limit_cpu": 3
+    },
     get_logs=True,
     is_delete_operator_pod=True,
     dag=dag
