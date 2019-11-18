@@ -58,7 +58,7 @@ op = KubernetesPodOperator(
         "limit_memory": 15032385536, # 14 GB
         "limit_cpu": 3
     },
-    startup_timeout_seconds=600,
+    startup_timeout_seconds=1800,
     get_logs=True,
     is_delete_operator_pod=True,
     affinity=affinity,
