@@ -54,7 +54,7 @@ op = KubernetesPodOperator(
     },
     resources={
         "request_memory": 12884901888, # 12 GB
-        "request_cpu": 2,
+        "request_cpu": 1.5,
         "limit_memory": 15032385536, # 14 GB
         "limit_cpu": 3
     },
