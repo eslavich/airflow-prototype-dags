@@ -20,10 +20,12 @@ affinity = {
     "nodeAffinity": {
         "requiredDuringSchedulingIgnoredDuringExecution": {
             "nodeSelectorTerms": [
-                "matchExpressions": {
-                    "key": "node-type",
-                    "operator": "In",
-                    "values": ["worker"]
+                {
+                    "matchExpressions": {
+                        "key": "node-type",
+                        "operator": "In",
+                        "values": ["worker"]
+                    }
                 }
             ]
         }
