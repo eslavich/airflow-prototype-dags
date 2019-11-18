@@ -16,6 +16,30 @@ default_args = {
 
 dag = DAG("strun-parametrized", default_args=default_args, schedule_interval=None)
 
+affinity = {
+    "nodeAffinity": {
+      "requiredDuringSchedulingIgnoredDuringExecution": [
+        {
+          "nodeSelectorTerms": {
+            "matchExpressions": {
+              "key": "node-type",
+              "operator": "In",
+              "values": ["worker"]
+            }
+          }
+        }
+      ]
+    }
+}
+
+tolerations = [
+    {
+        "key": "node-type",
+        "operator": "Equal",
+        "value": "worker"
+     }
+]
+
 op = KubernetesPodOperator(
     namespace="default",
     image="162808325377.dkr.ecr.us-east-1.amazonaws.com/airflow-prototype:latest",
@@ -39,5 +63,7 @@ op = KubernetesPodOperator(
     startup_timeout_seconds=600,
     get_logs=True,
     is_delete_operator_pod=True,
+    affinity=affinity,
+    tolerations=tolerations,
     dag=dag
 )
