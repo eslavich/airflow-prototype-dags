@@ -37,7 +37,7 @@ def create_pod_operator(dag, arguments, name, task_id, request_memory, request_c
         namespace=NAMESPACE,
         image=IMAGE,
         arguments=arguments,
-        name=name
+        name=name,
         task_id=task_id,
         env_vars=ENV_VARS
         resources={
