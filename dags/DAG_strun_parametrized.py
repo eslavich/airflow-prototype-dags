@@ -19,15 +19,13 @@ dag = DAG("strun-parametrized", default_args=default_args, schedule_interval=Non
 affinity = {
     "nodeAffinity": {
         "requiredDuringSchedulingIgnoredDuringExecution": {
-            "nodeSelectorTerms": [
-                {
-                    "matchExpressions": {
-                        "key": "node-type",
-                        "operator": "In",
-                        "values": ["worker"]
-                    }
-                }
-            ]
+            "nodeSelectorTerms": [{
+                "matchExpressions": [{
+                    "key": "node-type",
+                    "operator": "In",
+                    "values": ["worker"]
+                }]
+            }]
         }
     }
 }
