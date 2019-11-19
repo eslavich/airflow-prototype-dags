@@ -18,8 +18,6 @@ dag = DAG("slack-test", default_args=default_args, schedule_interval=None)
 task = SlackWebhookOperator(
     task_id="test-slack-alert",
     http_conn_id="slack-alerts",
-    message="testing...",
-    username="airflow",
-    icon_url="https://raw.githubusercontent.com/apache/airflow/master/airflow/www/static/pin_100.png",
+    message="Here is a link: https://dmd-test-airflow-prototype-data.s3.amazonaws.com/previews/jw00624012001_02101_00001_nrcalong/jw00624012001_02101_00001_nrcalong_trapsfilled_thumb.jpg",
     dag=dag
 )
