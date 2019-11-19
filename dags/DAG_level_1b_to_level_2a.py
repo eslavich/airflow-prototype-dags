@@ -1,20 +1,8 @@
 from airflow import DAG
-from datetime import datetime, timedelta
 
-from common import create_pod_operator
+from common import create_pod_operator, DEFAULT_ARGS
 
-default_args = {
-    "owner": "airflow",
-    "depends_on_past": False,
-    "start_date": datetime(2019, 1, 1),
-    "email": ["airflow@example.com"],
-    "email_on_failure": False,
-    "email_on_retry": False,
-    "retries": 1,
-    "retry_delay": timedelta(seconds=30)
-}
-
-dag = DAG("level-1b-to-level-2a", default_args=default_args, schedule_interval=None)
+dag = DAG("level-1b-to-level-2a", default_args=DEFAULT_ARGS, schedule_interval=None)
 
 preview_1b_task = create_pod_operator(
     dag,

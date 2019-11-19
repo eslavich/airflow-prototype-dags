@@ -1,4 +1,18 @@
+from datetime import datetime, timedelta
+
 from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
+from airflow.contrib.operators.slack_webhook_operator import SlackWebhookOperator
+
+DEFAULT_ARGS = {
+    "owner": "airflow",
+    "depends_on_past": False,
+    "start_date": datetime(2019, 1, 1),
+    "email": ["airflow@example.com"],
+    "email_on_failure": False,
+    "email_on_retry": False,
+    "retries": 1,
+    "retry_delay": timedelta(seconds=30)
+}
 
 AFFINITY = {
     "nodeAffinity": {
@@ -48,5 +62,14 @@ def create_pod_operator(dag, arguments, name, task_id, request_memory, request_c
         is_delete_operator_pod=True,
         affinity=AFFINITY,
         tolerations=TOLERATIONS,
+        dag=dag
+    )
+
+def create_slack_operator(dag, task_id, message, attachments=None)
+    return SlackWebhookOperator(
+        task_id=task_id,
+        http_conn_id="slack-alerts",
+        message=message,
+        attachments=attachments,
         dag=dag
     )
