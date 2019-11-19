@@ -21,6 +21,15 @@ task = SlackWebhookOperator(
     message="Test message",
     dag=dag,
     attachments=[{
+        "fallback": "Required plain-text summary of the attachment.",
+        "color": "#2eb886",
+        "pretext": "Optional text that appears above the attachment block",
+        "author_name": "Bobby Tables",
+        "author_link": "http://flickr.com/bobby/",
+        "author_icon": "http://flickr.com/icons/bobby.jpg",
+        "title": "Slack API Documentation",
+        "title_link": "https://api.slack.com/",
+        "text": "Optional text that appears within the attachment",
         "image_url": "https://dmd-test-airflow-prototype-data.s3.amazonaws.com/previews/jw00624012001_02101_00001_nrcalong/jw00624012001_02101_00001_nrcalong_rate.jpg"
     }]
 )
