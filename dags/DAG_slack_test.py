@@ -22,8 +22,6 @@ task = SlackWebhookOperator(
     dag=dag,
     attachments=[{
         "fallback": "Required plain-text summary of the attachment.",
-        "color": "#2eb886",
-        "pretext": "Optional text that appears above the attachment block",
         "author_name": "Bobby Tables",
         "author_link": "http://flickr.com/bobby/",
         "author_icon": "http://flickr.com/icons/bobby.jpg",
