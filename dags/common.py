@@ -65,7 +65,7 @@ def create_pod_operator(dag, arguments, name, task_id, request_memory, request_c
         dag=dag
     )
 
-def create_slack_operator(dag, task_id, message, attachments=None)
+def create_slack_operator(dag, task_id, message, attachments=None):
     return SlackWebhookOperator(
         task_id=task_id,
         http_conn_id="slack-alerts",
