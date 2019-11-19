@@ -16,6 +16,7 @@ default_args = {
 dag = DAG("slack-test", default_args=default_args, schedule_interval=None)
 
 task = SlackWebhookOperator(
+    task_id="test-slack-alert",
     http_conn_id="slack-alerts",
     message="testing..."
 )
