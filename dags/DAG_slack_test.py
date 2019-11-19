@@ -18,16 +18,12 @@ dag = DAG("slack-test", default_args=default_args, schedule_interval=None)
 task = SlackWebhookOperator(
     task_id="test-slack-alert",
     http_conn_id="slack-alerts",
-    message="Test message",
+    message="Generated preview image of jw00624012001_02101_00001_nrcalong_rate.fits",
     dag=dag,
     attachments=[{
-        "fallback": "Required plain-text summary of the attachment.",
-        "author_name": "Bobby Tables",
-        "author_link": "http://flickr.com/bobby/",
-        "author_icon": "http://flickr.com/icons/bobby.jpg",
-        "title": "Slack API Documentation",
-        "title_link": "https://api.slack.com/",
-        "text": "Optional text that appears within the attachment",
-        "image_url": "https://dmd-test-airflow-prototype-data.s3.amazonaws.com/previews/jw00624012001_02101_00001_nrcalong/jw00624012001_02101_00001_nrcalong_rate.jpg"
+        "fallback": "Preview image",
+        "title": "Preview image",
+        "title_link": "https://dmd-test-airflow-prototype-data.s3.amazonaws.com/previews/jw00624012001_02101_00001_nrcalong/jw00624012001_02101_00001_nrcalong_rate.jpg",
+        "image_url": "https://dmd-test-airflow-prototype-data.s3.amazonaws.com/previews/jw00624012001_02101_00001_nrcalong/jw00624012001_02101_00001_nrcalong_rate_thumb.jpg"
     }]
 )
