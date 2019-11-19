@@ -1,8 +1,14 @@
 from airflow import DAG
 
-from common import create_pod_operator, DEFAULT_ARGS
+from common import create_pod_operator, create_slack_operator, DEFAULT_ARGS
 
 dag = DAG("level-1b-to-level-2a", default_args=DEFAULT_ARGS, schedule_interval=None)
+
+ingress_alert_task = create_slack_operator(
+    dag,
+    "ingress-slack-alert",
+    "Received {{ dag_run.conf['dataset_id'] }} for processing"
+)
 
 preview_1b_task = create_pod_operator(
     dag,
@@ -17,6 +23,18 @@ preview_1b_task = create_pod_operator(
     1.0,
     1073741824,
     1.0
+)
+
+preview_1b_alert_task = create_slack_operator(
+    dag,
+    "preview-1b-slack-alert",
+    "Generated preview image of {{ dag_run.conf['input_uri'].split('/')[-1] }}",
+    [{
+        "fallback": "Preview image",
+        "title": "Preview image",
+        "title_link": "https://dmd-test-airflow-prototype-data.s3.amazonaws.com/previews/{{ dag_run.conf['dataset_id'] }}/{{ dag_run.conf['dataset_id'] + '_uncal.jpg' }}",
+        "image_url": "https://dmd-test-airflow-prototype-data.s3.amazonaws.com/previews/{{ dag_run.conf['dataset_id'] }}/{{ dag_run.conf['dataset_id'] + '_uncal_thumb.jpg' }}"
+    }]
 )
 
 level_2a_task = create_pod_operator(
@@ -35,6 +53,12 @@ level_2a_task = create_pod_operator(
     3
 )
 
+level_2a_alert_task = create_slack_operator(
+    dag,
+    "level-2a-slack-alert",
+    "Completed level 2a processing of {{ dag_run.conf['dataset_id'] }}",
+)
+
 preview_2a_task = create_pod_operator(
     dag,
     [
@@ -50,4 +74,21 @@ preview_2a_task = create_pod_operator(
     1.0
 )
 
-level_2a_task >> preview_2a_task
+preview_2a_alert_task = create_slack_operator(
+    dag,
+    "preview-2a-slack-alert",
+    "Generated preview image of {{ dag_run.conf['dataset_id'] + '_rate.fits' }}",
+    [{
+        "fallback": "Preview image",
+        "title": "Preview image",
+        "title_link": "https://dmd-test-airflow-prototype-data.s3.amazonaws.com/previews/{{ dag_run.conf['dataset_id'] }}/{{ dag_run.conf['dataset_id'] + '_rate.jpg' }}",
+        "image_url": "https://dmd-test-airflow-prototype-data.s3.amazonaws.com/previews/{{ dag_run.conf['dataset_id'] }}/{{ dag_run.conf['dataset_id'] + '_rate_thumb.jpg' }}"
+    }]
+)
+
+ingress_alert_task >> [preview_1b_task, level_2a_task]
+preview_1b_task >> [preview_1b_alert_task]
+level_2a_task >> [level_2a_alert_task, preview_2a_task]
+preview_2a_task >> preview_2a_alert_task
+
+
