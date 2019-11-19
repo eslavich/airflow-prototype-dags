@@ -19,5 +19,7 @@ task = SlackWebhookOperator(
     task_id="test-slack-alert",
     http_conn_id="slack-alerts",
     message="testing...",
+    username="airflow",
+    icon_url="https://raw.githubusercontent.com/apache/airflow/master/airflow/www/static/pin_100.png",
     dag=dag
 )
