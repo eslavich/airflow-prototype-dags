@@ -18,6 +18,9 @@ dag = DAG("slack-test", default_args=default_args, schedule_interval=None)
 task = SlackWebhookOperator(
     task_id="test-slack-alert",
     http_conn_id="slack-alerts",
-    message="Here is a link: https://dmd-test-airflow-prototype-data.s3.amazonaws.com/previews/jw00624012001_02101_00001_nrcalong/jw00624012001_02101_00001_nrcalong_trapsfilled_thumb.jpg",
-    dag=dag
+    message="Test message",
+    dag=dag,
+    attachments=[{
+        "image_url": "https://dmd-test-airflow-prototype-data.s3.amazonaws.com/previews/jw00624012001_02101_00001_nrcalong/jw00624012001_02101_00001_nrcalong_rate.jpg"
+    }]
 )
