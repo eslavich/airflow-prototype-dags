@@ -5,7 +5,7 @@ from common import create_pod_operator, create_slack_operator, DEFAULT_ARGS
 
 dag = DAG("level-1b-to-level-2a", default_args=DEFAULT_ARGS, schedule_interval=None)
 
-def log_dataset(ds, **kwargs):
+def log_dataset(*args, **kwargs):
     print(f"Received { kwargs['dag_run'].conf['dataset_id'] } for processing")
 
 log_dataset_task = PythonOperator(
