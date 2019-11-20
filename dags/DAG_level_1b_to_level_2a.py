@@ -1,8 +1,18 @@
 from airflow import DAG
+from airflow.operators.python_operator import PythonOperator
 
 from common import create_pod_operator, create_slack_operator, DEFAULT_ARGS
 
 dag = DAG("level-1b-to-level-2a", default_args=DEFAULT_ARGS, schedule_interval=None)
+
+def log_dataset(ds, **kwargs):
+    print(f"Received { kwargs['dag_run'].conf['dataset_id'] } for processing")
+
+log_dataset_task = PythonOperator(
+    task_id="log-dataset",
+    python_callable=log_dataset,
+    dag=dag
+)
 
 ingress_alert_task = create_slack_operator(
     dag,
