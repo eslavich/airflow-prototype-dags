@@ -59,7 +59,7 @@ def create_pod_operator(dag, arguments, name, task_id, request_memory, request_c
         },
         startup_timeout_seconds=STARTUP_TIMEOUT_SECONDS,
         get_logs=True,
-        is_delete_operator_pod=True,
+#        is_delete_operator_pod=True,
         affinity=AFFINITY,
         tolerations=TOLERATIONS,
         dag=dag
