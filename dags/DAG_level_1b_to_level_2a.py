@@ -58,9 +58,9 @@ level_2a_task = create_pod_operator(
     ],
     "level-2a",
     "level-2a",
-    12884901888, # 12 GB
+    64424509440, # 12 GB
     1.5,
-    32212254720, # 30 GB,
+    64424509440, # 30 GB,
     3
 )
 
