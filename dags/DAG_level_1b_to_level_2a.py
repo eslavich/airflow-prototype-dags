@@ -10,6 +10,7 @@ def log_dataset(*args, **kwargs):
 
 log_dataset_task = PythonOperator(
     task_id="log-dataset",
+    provide_context=True,
     python_callable=log_dataset,
     dag=dag
 )
